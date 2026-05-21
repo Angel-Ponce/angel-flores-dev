@@ -1,0 +1,17 @@
+---
+import type { CvDateRange } from '@tools/cv-sections';
+import { format, formatDistanceToNowStrict } from 'date-fns';
+
+interface Props {
+  range: CvDateRange;
+}
+
+const { range } = Astro.props;
+const DATE_FORMAT = 'dd MMM. yyyy';
+---
+
+<span class="text-primary text-sm">
+  {format(range[0], DATE_FORMAT)} -{' '}
+  {typeof range[1] === 'string' ? 'Present' : format(range[1], DATE_FORMAT)}
+  {typeof range[1] === 'string' && ` (${formatDistanceToNowStrict(range[0])})`}
+</span>

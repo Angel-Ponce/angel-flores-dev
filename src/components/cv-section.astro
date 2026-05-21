@@ -1,0 +1,67 @@
+---
+import type { CvSection } from '@tools/cv-sections';
+import { Icon } from 'astro-icon/components';
+import CvDateRange from './cv-date-range.astro';
+import CvPointList from './cv-point-list.astro';
+import CvTechStack from './cv-tech-stack.astro';
+
+interface Props extends CvSection {}
+
+const { title, description, subsections, companies } = Astro.props;
+
+const DATE_FORMAT = 'dd MMM. yyyy';
+---
+
+<section class="flex flex-col gap-3 py-3">
+  <h3 class="font-heading text-primary text-xl font-bold">{title}</h3>
+
+  {description && <p>{description}</p>}
+
+  {
+    subsections?.map((section) => (
+      <div>
+        <h4 class="font-semibold">{section.title}</h4>
+        <p>
+          {section.description}
+          {' • '}
+          <CvDateRange range={section.dateRange} />
+        </p>
+      </div>
+    ))
+  }
+
+  {
+    companies?.map((company) => (
+      <div class="not-last:border-secondary/50 grid grid-cols-[min-content_1fr] gap-x-3 py-3 not-last:border-b-2 not-last:border-dashed">
+        <Icon name="duo-icons:building" size={48} />
+        <div class="flex flex-col gap-3">
+          <div>
+            <div class="text-lg font-semibold">{company.title}</div>
+            <div>
+              {company.subtitle}
+              {' • '}
+              <CvDateRange range={company.dateRange} />
+            </div>
+          </div>
+
+          <CvTechStack techStack={company.skillIconNames} />
+
+          <CvPointList points={company.points} />
+
+          {company.sections?.map((section) => (
+            <div class="flex flex-col gap-3">
+              <div>
+                <div class="font-semibold">{section.title}</div>
+                <CvDateRange range={section.dateRange} />
+              </div>
+
+              <CvTechStack techStack={section.skillIconNames} />
+
+              <CvPointList points={section.points} />
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</section>

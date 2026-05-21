@@ -1,0 +1,80 @@
+---
+import CvSection from '@components/cv-section.astro';
+import cvMe from '@images/cv-me.webp';
+import Topo from '@svg/topo.svg';
+import DefaultPage from '@layouts/default-page.astro';
+import { contactMethods } from '@tools/contact-methods';
+import { cvSections } from '@tools/cv-sections';
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import CvTechStack from '@components/cv-tech-stack.astro';
+---
+
+<DefaultPage>
+  <main class="flex w-full justify-center">
+    <section class="relative w-full max-w-[8.27in] p-12">
+      <Topo
+        class="pointer-events-none absolute top-0 left-0 mask-b-from-20% mask-b-to-80% opacity-5"
+      />
+      <div class="float-right mb-3 ml-3 h-40 w-40 overflow-hidden rounded-lg">
+        <Image
+          src={cvMe}
+          width={320}
+          height={320}
+          alt="Angel Flores"
+          decoding="async"
+          loading="lazy"
+        />
+      </div>
+
+      <h1 class="font-heading text-4xl font-semibold">Angel Flores</h1>
+      <h2 class="text-primary text-2xl">Software Engineer</h2>
+      <CvTechStack
+        title="My stack"
+        techStack={[
+          'logos:react',
+          'logos:nextjs-icon',
+          'logos:astro-icon',
+          'logos:typescript-icon',
+          'logos:tailwindcss-icon',
+          'logos:git-icon',
+        ]}
+      />
+
+      <section class="flex flex-wrap items-center gap-3 py-3">
+        {
+          contactMethods.map(({ label, href, iconName }) => (
+            <div class="flex items-center gap-1">
+              {<Icon name={iconName} size={16} class="text-secondary" />}
+              <a
+                class="bg-secondary/20 rounded-md px-1 py-px text-sm"
+                target="_blank"
+                rel="noreferrer"
+                href={href}
+              >
+                {label}
+              </a>
+            </div>
+          ))
+        }
+      </section>
+
+      <section class="py-3">
+        Hi, thank you for being here, I'm a software engineer from Guatemala
+        with <b class="text-primary">+6 years of experience</b> who enjoys working
+        smart, hard and funny.
+        <i>Let's do it together!</i>
+      </section>
+
+      {cvSections.map((section) => <CvSection {...section} />)}
+    </section>
+  </main>
+</DefaultPage>
+
+<style>
+  @media print {
+    @page {
+      margin: 0;
+    }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  techStack?: string[];
+  title?: string;
+}
+
+import { Icon } from 'astro-icon/components';
+
+const { techStack, title = 'Main stack' } = Astro.props;
+---
+
+{
+  !!techStack?.length && (
+    <div class="flex items-center gap-1">
+      <span class="text-sm">{title}:</span>
+
+      {techStack.map((iconName) => (
+        <span class="bg-secondary/20 rounded-md p-0.5" title={iconName}>
+          <Icon name={iconName} size={18} />
+        </span>
+      ))}
+    </div>
+  )
+}

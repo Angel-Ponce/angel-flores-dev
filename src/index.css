@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-text: var(--font-text);
+  --font-heading: var(--font-heading);
+
+  --color-dark-base: #181818;
+  --color-white-base: #F2F2F2;
+  --color-primary: #8758FF;
+  --color-secondary: #89C4E1;
+}

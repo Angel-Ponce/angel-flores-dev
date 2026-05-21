@@ -1,0 +1,17 @@
+---
+interface Props {
+  points?: string[];
+}
+
+const { points } = Astro.props;
+---
+
+{
+  !!points?.length && (
+    <ul class="flex flex-col gap-1 text-sm">
+      {points.map((point) => (
+        <li>• {point}</li>
+      ))}
+    </ul>
+  )
+}
