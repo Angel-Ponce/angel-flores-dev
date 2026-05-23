@@ -3,6 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import icon from 'astro-icon';
 
+import vercel from '@astrojs/vercel';
+
 export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
@@ -58,4 +60,6 @@ export default defineConfig({
       },
     }),
   ],
+
+  adapter: vercel(),
 });
