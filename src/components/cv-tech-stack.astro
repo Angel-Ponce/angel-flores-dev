@@ -11,7 +11,7 @@ const { techStack, title = 'Main stack' } = Astro.props;
 
 {
   !!techStack?.length && (
-    <div class="flex items-center gap-1">
+    <div class="flex flex-wrap items-center gap-1">
       <span class="text-sm">{title}:</span>
 
       {techStack.map((iconName) => (
