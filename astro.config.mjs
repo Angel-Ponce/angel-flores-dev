@@ -8,7 +8,10 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
-
+  adapter: vercel(),
+  redirects: {
+    '/': '/cv',
+  },
   fonts: [
     {
       provider: fontProviders.google(),
@@ -23,7 +26,6 @@ export default defineConfig({
       weights: [400, 600],
     },
   ],
-
   integrations: [
     icon({
       include: {
@@ -60,6 +62,4 @@ export default defineConfig({
       },
     }),
   ],
-
-  adapter: vercel(),
 });
