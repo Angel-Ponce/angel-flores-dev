@@ -1,0 +1,62 @@
+---
+import { GITLAB_TOKEN } from 'astro:env/server';
+import axios from 'axios';
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  endOfWeek,
+  format,
+  formatISO,
+  startOfMonth,
+  startOfWeek,
+  subYears,
+} from 'date-fns';
+import CountCalendar from './count-calendar.astro';
+
+type Event = {
+  id: number;
+  created_at: string;
+};
+
+const now = new Date();
+const events: Event[] = [];
+const lastYear = subYears(now, 1);
+let calendar: Record<string, number> = {};
+
+const getEventsByPage = (page = 1) =>
+  axios
+    .get<Event[]>('https://gl.betaburrito.com/api/v4/users/196/events', {
+      headers: { 'PRIVATE-TOKEN': GITLAB_TOKEN },
+      params: {
+        after: formatISO(lastYear, {
+          representation: 'date',
+        }),
+        per_page: 100,
+        page,
+      },
+    })
+    .then((response) => ({
+      events: response.data,
+      totalPages: +response.headers['x-total-pages'],
+    }))
+    .catch(() => ({ events: [] as Event[], totalPages: 1 }));
+
+if (Astro.cache.enabled) {
+  const firstPage = await getEventsByPage();
+  events.push(...firstPage.events);
+
+  for (let page = 2; page <= firstPage.totalPages; page++) {
+    events.push(...(await getEventsByPage(page)).events);
+  }
+
+  calendar = events.reduce<Record<string, number>>((calendar, event) => {
+    const isoDate = formatISO(event.created_at, { representation: 'date' });
+    const dateCount = calendar[isoDate] || 0;
+
+    return { ...calendar, [isoDate]: dateCount + 1 };
+  }, {});
+}
+---
+
+<CountCalendar calendar={calendar} now={now} lastYear={lastYear} />

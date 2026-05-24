@@ -23,6 +23,15 @@ export type CvSection = {
   }[];
 };
 
+export const mainStack = [
+  'logos:react',
+  'logos:nextjs-icon',
+  'logos:astro-icon',
+  'logos:typescript-icon',
+  'logos:tailwindcss-icon',
+  'logos:git-icon',
+];
+
 export const cvSections = [
   {
     title: 'Education',

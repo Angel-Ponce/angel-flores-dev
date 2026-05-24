@@ -1,4 +1,9 @@
-import { defineConfig, fontProviders } from 'astro/config';
+import {
+  defineConfig,
+  envField,
+  fontProviders,
+  memoryCache,
+} from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 import icon from 'astro-icon';
@@ -9,8 +14,14 @@ export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
-  redirects: {
-    '/': '/cv',
+  env: {
+    schema: {
+      GITLAB_TOKEN: envField.string({
+        context: 'server',
+        access: 'secret',
+        default: '',
+      }),
+    },
   },
   fonts: [
     {
@@ -62,4 +73,9 @@ export default defineConfig({
       },
     }),
   ],
+  experimental: {
+    cache: {
+      provider: memoryCache(),
+    },
+  },
 });

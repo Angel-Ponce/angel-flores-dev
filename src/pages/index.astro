@@ -1,5 +1,111 @@
 ---
+import CountCalendar from '@components/count-calendar.astro';
+import CvTechStack from '@components/cv-tech-stack.astro';
+import GitlabCalendar from '@components/gitlab-calendar.astro';
+import angelBikerImage from '@images/angel-biker.webp';
+import angelImage from '@images/angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
+import { mainStack } from '@tools/cv-sections';
+import { Image } from 'astro:assets';
+import { subYears } from 'date-fns';
+import { days } from 'time2time';
+
+const now = new Date();
+
+export const prerender = false;
+
+Astro.cache.set({ maxAge: days(1).to('sec') });
 ---
 
-<DefaultPage />
+<DefaultPage>
+  <div class="flex flex-col gap-12">
+    <div class="flex flex-wrap gap-12">
+      <div class="relative h-56.25 w-75 shrink-0">
+        <Image
+          src={angelBikerImage}
+          alt="Angel Biker"
+          width={600}
+          height={450}
+          class="rounded-xl"
+        />
+
+        <div
+          class="border-secondary/60 dark:border-secondary/20 shadow-primary absolute -top-3 -left-3 h-14 w-14 rounded-tl-3xl border-t-4 border-l-4"
+        >
+        </div>
+        <div
+          class="border-secondary/60 dark:border-secondary/20 absolute -bottom-3 -left-3 h-14 w-14 rounded-bl-3xl border-b-4 border-l-4"
+        >
+        </div>
+
+        <div
+          class="border-secondary/60 dark:border-secondary/20 shadow-primary absolute -top-3 -right-3 h-14 w-14 rounded-tr-3xl border-t-4 border-r-4"
+        >
+        </div>
+        <div
+          class="border-secondary/60 dark:border-secondary/20 absolute -right-3 -bottom-3 h-14 w-14 rounded-br-3xl border-r-4 border-b-4"
+        >
+        </div>
+
+        <div
+          class="shadow-dark-base absolute right-2 bottom-2 h-16 w-16 rounded-full shadow-2xl"
+        >
+          <Image
+            src={angelImage}
+            alt="Angel"
+            width={120}
+            height={120}
+            class="rounded-full"
+          />
+        </div>
+      </div>
+      <div class="flex min-w-[320px] flex-1 flex-col justify-between gap-3">
+        <div>
+          <h1 class="font-heading text-4xl font-semibold">Angel Flores</h1>
+          <h2 class="text-primary text-xl">Software Engineer</h2>
+          <CvTechStack techStack={mainStack} />
+        </div>
+
+        <div>
+          <b>Welcome!</b> this is my personal space ✨ here you will find all about
+          me, my background, experience, hobbies, relevant blog posts, feels and so
+          on..
+        </div>
+      </div>
+    </div>
+
+    <section class="flex flex-col gap-3">
+      <div>
+        <h3 class="dark:text-primary text-heading text-3xl font-bold">
+          Work Calendar
+        </h3>
+        <p class="opacity-50">Make every day your masterpiece</p>
+      </div>
+
+      <GitlabCalendar server:defer>
+        <CountCalendar
+          calendar={{}}
+          now={now}
+          lastYear={subYears(now, 1)}
+          slot="fallback"
+        />
+      </GitlabCalendar>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <div>
+        <h3 class="dark:text-primary text-heading text-3xl font-bold">
+          Current Target
+        </h3>
+        <p class="opacity-50">What I do?</p>
+      </div>
+
+      <p>
+        I'm currently working on <b>Frontend Development</b> building <b
+          >web & apps</b
+        > that feels unique, robust, and fast. I'm passionate of modern technologies,
+        but I also have experience with largest and legacy projects.
+      </p>
+    </section>
+  </div>
+</DefaultPage>

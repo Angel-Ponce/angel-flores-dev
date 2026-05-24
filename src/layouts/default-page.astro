@@ -18,7 +18,11 @@ import '../index.css';
   <body
     class="font-text text-dark-base dark:text-white-base bg-white-base dark:bg-dark-base"
   >
-    <slot />
+    <main class="flex w-full justify-center">
+      <section class="relative w-full max-w-[8.27in] p-12">
+        <slot />
+      </section>
+    </main>
 
     <DarkTheme />
   </body>
