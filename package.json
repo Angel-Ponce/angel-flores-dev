@@ -24,6 +24,7 @@
     "tailwind-animations": "^1.0.1",
     "tailwindcss": "^4.3.0",
     "time2time": "^1.2.1",
+    "tippy.js": "^6.3.7",
     "uuid": "^14.0.0"
   },
   "devDependencies": {

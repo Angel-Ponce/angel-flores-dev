@@ -1,13 +1,13 @@
 ---
 import CvSection from '@components/cv-section.astro';
+import Skills from '@components/skills.astro';
 import cvAngelImage from '@images/cv-angel.webp';
-import Topo from '@svg/topo.svg';
 import DefaultPage from '@layouts/default-page.astro';
+import Topo from '@svg/topo.svg';
 import { contactMethods } from '@tools/contact-methods';
-import { cvSections, mainStack } from '@tools/cv-sections';
-import { Image } from 'astro:assets';
+import { cvSections, mainSkills } from '@tools/cv-sections';
 import { Icon } from 'astro-icon/components';
-import CvTechStack from '@components/cv-tech-stack.astro';
+import { Image } from 'astro:assets';
 ---
 
 <DefaultPage>
@@ -27,7 +27,7 @@ import CvTechStack from '@components/cv-tech-stack.astro';
 
   <h1 class="font-heading text-4xl font-semibold">Angel Flores</h1>
   <h2 class="text-primary text-2xl">Software Engineer</h2>
-  <CvTechStack title="My stack" techStack={mainStack} />
+  <Skills title="My stack" skills={mainSkills} />
 
   <section class="flex flex-wrap items-center gap-3 py-3">
     {

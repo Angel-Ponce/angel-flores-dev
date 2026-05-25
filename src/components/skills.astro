@@ -1,0 +1,27 @@
+---
+interface Props {
+  skills?: CvSkills;
+  title?: string;
+}
+
+import type { CvSkills } from '@tools/cv-sections';
+import { Icon } from 'astro-icon/components';
+
+const { skills, title = 'Main stack' } = Astro.props;
+---
+
+{
+  !!Object.keys(skills ?? {}).length && (
+    <div class="flex cursor-pointer flex-wrap items-center gap-1">
+      <span class="text-sm">{title}:</span>
+
+      {Object.entries(skills ?? {}).map(([name, icon]) => (
+        <span data-tippy class="bg-secondary/20 rounded-md p-0.5">
+          <Icon name={icon} size={18} />
+
+          <span data-tippy-content>{name}</span>
+        </span>
+      ))}
+    </div>
+  )
+}

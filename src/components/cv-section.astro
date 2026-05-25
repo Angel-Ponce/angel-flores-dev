@@ -3,7 +3,7 @@ import type { CvSection } from '@tools/cv-sections';
 import { Icon } from 'astro-icon/components';
 import CvDateRange from './cv-date-range.astro';
 import CvPointList from './cv-point-list.astro';
-import CvTechStack from './cv-tech-stack.astro';
+import Skills from './skills.astro';
 
 interface Props extends CvSection {}
 
@@ -44,7 +44,7 @@ const DATE_FORMAT = 'dd MMM. yyyy';
             </div>
           </div>
 
-          <CvTechStack techStack={company.skillIconNames} />
+          <Skills skills={company.skills} />
 
           <CvPointList points={company.points} />
 
@@ -55,7 +55,7 @@ const DATE_FORMAT = 'dd MMM. yyyy';
                 <CvDateRange range={section.dateRange} />
               </div>
 
-              <CvTechStack techStack={section.skillIconNames} />
+              <Skills skills={section.skills} />
 
               <CvPointList points={section.points} />
             </div>

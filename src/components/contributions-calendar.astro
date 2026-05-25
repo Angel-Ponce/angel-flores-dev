@@ -1,0 +1,173 @@
+---
+import { calendar } from '@tools/calendar';
+import {
+  addDays,
+  addMonths,
+  endOfMonth,
+  endOfWeek,
+  format,
+  formatISO,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  subYears,
+} from 'date-fns';
+import { v4 as uuidV4 } from 'uuid';
+
+const now = new Date();
+const calendarId = `calendar-${uuidV4()}`;
+
+const startMonth = subYears(now, 1);
+
+const months = Array.from(
+  new Set(
+    Object.keys(calendar)
+      .map((isoDate) => new Date(isoDate))
+      .sort((dateA, dateB) => dateA.getTime() - dateB.getTime())
+      .map((date) => format(date, 'MMM. yy')),
+  ),
+);
+
+const getMonthWeeks = (date: Date) => {
+  const days: Date[] = [];
+  let startDay = startOfWeek(startOfMonth(date));
+  const endDay = endOfWeek(endOfMonth(date));
+
+  while (startDay <= endDay) {
+    days.push(startDay);
+    startDay = addDays(startDay, 1);
+  }
+
+  const weeks: Date[][] = [];
+
+  for (let i = 0; i < days.length / 7; i++) {
+    weeks.push(days.slice(i * 7, (i + 1) * 7));
+  }
+
+  return weeks;
+};
+
+const getOpacity = (contributions: number) => {
+  if (contributions <= 0) return 0;
+
+  if (contributions <= 9) return 0.2;
+
+  if (contributions <= 19) return 0.5;
+
+  if (contributions <= 29) return 0.8;
+
+  return 1;
+};
+
+const isDayInRange = (date: Date) =>
+  startOfDay(date) >= startOfDay(startMonth) &&
+  startOfDay(date) <= startOfDay(now);
+---
+
+<div class="flex flex-col gap-px">
+  <section
+    class="flex scrollbar-thin items-start gap-px overflow-x-auto"
+    id={calendarId}
+  >
+    {
+      months.map((month, index) => (
+        <div class="flex flex-col gap-px">
+          <span class="text-xs opacity-50">{month}</span>
+
+          <div class="flex items-start gap-px">
+            {getMonthWeeks(addMonths(startMonth, index)).map(
+              (week) =>
+                !!week.length && (
+                  <div class="flex flex-col gap-px">
+                    {week.map((day) => {
+                      const isoDate = formatISO(day, {
+                        representation: 'date',
+                      });
+                      const isInRange = isDayInRange(day);
+                      const contributions = calendar[isoDate] ?? 0;
+
+                      return (
+                        <div
+                          data-tippy
+                          class:list={[
+                            'h-4 w-4 cursor-pointer rounded-xs',
+                            isInRange && contributions > 0
+                              ? 'bg-primary dark:bg-secondary'
+                              : 'bg-dark-base dark:bg-white-base',
+                          ]}
+                          style={{
+                            opacity:
+                              isInRange && contributions > 0
+                                ? getOpacity(contributions)
+                                : 0.05,
+                          }}
+                        >
+                          <span data-tippy-content>
+                            <div class="font-heading">
+                              {isInRange
+                                ? `${contributions} contributions`
+                                : 'No data available'}
+                            </div>
+                            <div class="opacity-60">{isoDate}</div>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ),
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <div class="flex items-center justify-between">
+    <p class="text-xs opacity-50">Calendar updated weekly</p>
+    <div class="flex items-center gap-px">
+      <div
+        data-tippy
+        class="bg-dark-base dark:bg-white-base h-4 w-4 cursor-pointer rounded-xs"
+        style={{ opacity: 0.05 }}
+      >
+        <span data-tippy-content> No contributions </span>
+      </div>
+      <div
+        data-tippy
+        class="bg-primary dark:bg-secondary h-4 w-4 cursor-pointer rounded-xs"
+        style={{ opacity: getOpacity(1) }}
+      >
+        <span data-tippy-content> 1-9 Contributions </span>
+      </div>
+      <div
+        data-tippy
+        class="bg-primary dark:bg-secondary h-4 w-4 cursor-pointer rounded-xs"
+        style={{ opacity: getOpacity(10) }}
+      >
+        <span data-tippy-content> 10-19 Contributions </span>
+      </div>
+      <div
+        data-tippy
+        class="bg-primary dark:bg-secondary h-4 w-4 cursor-pointer rounded-xs"
+        style={{ opacity: getOpacity(20) }}
+      >
+        <span data-tippy-content> 20-29 Contributions </span>
+      </div>
+      <div
+        data-tippy
+        class="bg-primary dark:bg-secondary h-4 w-4 cursor-pointer rounded-xs"
+        style={{ opacity: getOpacity(30) }}
+      >
+        <span data-tippy-content> > 30 Contributions </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ calendarId }}>
+  const calendarElement = document.getElementById(calendarId);
+  calendarElement?.scrollTo({
+    left: calendarElement.scrollWidth,
+    behavior: 'instant',
+  });
+</script>

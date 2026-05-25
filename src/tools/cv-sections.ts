@@ -1,4 +1,8 @@
+import { getSkills } from './skills';
+
 export type CvDateRange = [start: Date, end: Date | 'present'];
+
+export type CvSkills = Record<string, string>;
 
 export type CvSection = {
   title: string;
@@ -13,24 +17,24 @@ export type CvSection = {
     subtitle: string;
     dateRange: CvDateRange;
     points?: string[];
-    skillIconNames?: string[];
+    skills?: CvSkills;
     sections?: {
       title: string;
       dateRange: CvDateRange;
       points: string[];
-      skillIconNames?: string[];
+      skills?: CvSkills;
     }[];
   }[];
 };
 
-export const mainStack = [
-  'logos:react',
-  'logos:nextjs-icon',
-  'logos:astro-icon',
-  'logos:typescript-icon',
-  'logos:tailwindcss-icon',
-  'logos:git-icon',
-];
+export const mainSkills = getSkills(
+  'React',
+  'NextJS',
+  'Astro',
+  'TypeScript',
+  'TailwindCSS',
+  'Git',
+);
 
 export const cvSections = [
   {
@@ -54,14 +58,7 @@ export const cvSections = [
       {
         title: 'Frontend Engineer',
         subtitle: 'Startrack S.A.',
-        skillIconNames: [
-          'logos:react',
-          'logos:typescript-icon',
-          'logos:sass',
-          'logos:htmx-icon',
-          'logos:php',
-          'logos:git-icon',
-        ],
+        skills: getSkills('React', 'TypeScript', 'Sass', 'HTMX', 'PHP', 'Git'),
         dateRange: [new Date(2023, 8, 18), 'present'],
         points: [
           'I collaborated with a multidisciplinary team, integrating effectively and smoothly to carry out my activities.',
@@ -82,14 +79,14 @@ export const cvSections = [
           {
             title: 'Fullstack Developer',
             dateRange: [new Date(2022, 6, 1), new Date(2023, 8, 1)],
-            skillIconNames: [
-              'logos:postgresql',
-              'logos:nodejs-icon-alt',
-              'logos:graphql',
-              'logos:javascript',
-              'logos:firebase-icon',
-              'logos:git-icon',
-            ],
+            skills: getSkills(
+              'PostgreSQL',
+              'NodeJS',
+              'GraphQL',
+              'JavaScript',
+              'Firebase',
+              'Git',
+            ),
             points: [
               'I deepened my knowledge in the backend area, implementing new integrations and maintaining projects I had previously worked on as a frontend developer.',
               'I implemented improvements and new features by integrating both the backend and frontend, ensuring effective communication between servers and web applications.',
@@ -99,13 +96,13 @@ export const cvSections = [
           {
             title: 'Frontend Developer',
             dateRange: [new Date(2022, 2, 1), new Date(2022, 6, 1)],
-            skillIconNames: [
-              'logos:svelte-icon',
-              'logos:typescript-icon',
-              'logos:tailwindcss-icon',
-              'logos:graphql',
-              'logos:git-icon',
-            ],
+            skills: getSkills(
+              'Svelte',
+              'TypesCript',
+              'TailwindCSS',
+              'GraphQL',
+              'Git',
+            ),
             points: [
               'Contributed to frontend software development using cutting-edge technologies like Svelte Kit, TailwindCSS, and GraphQL, fostering a productive and collaborative workspace for the development team.',
               'Collaborated with over 3 different teams, demonstrating agility and adaptability to address evolving company needs and projects.',
@@ -120,13 +117,7 @@ export const cvSections = [
         title: 'Finanssoreal',
         subtitle: 'Full remote',
         dateRange: [new Date(2021, 2, 1), new Date(2022, 2, 1)],
-        skillIconNames: [
-          'logos:php',
-          'logos:laravel',
-          'logos:javascript',
-          'logos:mysql',
-          'logos:git-icon',
-        ],
+        skills: getSkills('PHP', 'Laravel', 'JavaScript', 'MySQL', 'Git'),
         sections: [
           {
             title: 'Technical Lead',
@@ -153,15 +144,15 @@ export const cvSections = [
         title: 'Freelance',
         subtitle: 'Self Employed',
         dateRange: [new Date(2020, 0, 1), 'present'],
-        skillIconNames: [
-          'logos:nextjs-icon',
-          'logos:react',
-          'logos:typescript-icon',
-          'logos:javascript',
-          'logos:nodejs-icon-alt',
-          'logos:tailwindcss-icon',
-          'logos:git-icon',
-        ],
+        skills: getSkills(
+          'NextJS',
+          'React',
+          'TypeScript',
+          'JavaScript',
+          'NodeJS',
+          'TailwindCSS',
+          'Git',
+        ),
         points: [
           'Sales system development for a hardware store in Cobán, Alta Verapaz.',
           'CMS development for a scientific research laboratory at Centro Universitario del Norte ITIC.',

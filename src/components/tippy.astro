@@ -1,0 +1,30 @@
+<script>
+  import tippy, { roundArrow } from 'tippy.js';
+  import 'tippy.js/animations/perspective.css';
+  import 'tippy.js/dist/svg-arrow.css';
+
+  tippy('[data-tippy]', {
+    content: (reference) =>
+      reference.querySelector('span[data-tippy-content]')?.innerHTML ?? '',
+    allowHTML: true,
+    animation: 'perspective',
+    theme: 'personal',
+    arrow: roundArrow,
+  });
+</script>
+
+<style is:global>
+  @reference "../index.css";
+
+  *[data-tippy-content] {
+    display: none;
+  }
+
+  .tippy-box[data-theme~='personal'] {
+    @apply text-white-base dark:text-dark-base bg-dark-base dark:bg-white-base rounded-sm px-1 py-0.5 text-center text-xs text-[10px] font-semibold;
+
+    & > .tippy-svg-arrow {
+      @apply fill-dark-base dark:fill-white-base;
+    }
+  }
+</style>

@@ -1,10 +1,10 @@
 ---
-import CvTechStack from '@components/cv-tech-stack.astro';
-import GitlabCalendar from '@components/gitlab-calendar.astro';
+import ContributionsCalendar from '@components/contributions-calendar.astro';
+import Skills from '@components/skills.astro';
 import angelBikerImage from '@images/angel-biker.webp';
 import angelImage from '@images/angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
-import { mainStack } from '@tools/cv-sections';
+import { mainSkills } from '@tools/cv-sections';
 import { Image } from 'astro:assets';
 
 const now = new Date();
@@ -56,7 +56,7 @@ const now = new Date();
         <div>
           <h1 class="font-heading text-4xl font-semibold">Angel Flores</h1>
           <h2 class="text-primary text-xl">Software Engineer</h2>
-          <CvTechStack techStack={mainStack} />
+          <Skills skills={mainSkills} />
         </div>
 
         <div>
@@ -70,12 +70,12 @@ const now = new Date();
     <section class="flex flex-col gap-3">
       <div>
         <h3 class="dark:text-primary text-heading text-3xl font-bold">
-          Work Calendar
+          My work trace
         </h3>
         <p class="opacity-50">Make every day your masterpiece</p>
       </div>
 
-      <GitlabCalendar />
+      <ContributionsCalendar />
     </section>
 
     <section class="flex flex-col gap-3">
