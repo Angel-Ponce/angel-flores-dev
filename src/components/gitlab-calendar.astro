@@ -1,6 +1,5 @@
 ---
-import { GITLAB_TOKEN } from 'astro:env/server';
-import axios from 'axios';
+import { calendar } from '@tools/calendar';
 import {
   addDays,
   addMonths,
@@ -8,55 +7,104 @@ import {
   endOfWeek,
   format,
   formatISO,
+  startOfDay,
   startOfMonth,
   startOfWeek,
   subYears,
 } from 'date-fns';
-import CountCalendar from './count-calendar.astro';
-
-type Event = {
-  id: number;
-  created_at: string;
-};
+import { v4 as uuidV4 } from 'uuid';
 
 const now = new Date();
-const events: Event[] = [];
-const lastYear = subYears(now, 1);
-let calendar: Record<string, number> = {};
+const calendarId = `calendar-${uuidV4()}`;
 
-const getEventsByPage = (page = 1) =>
-  axios
-    .get<Event[]>('https://gl.betaburrito.com/api/v4/users/196/events', {
-      headers: { 'PRIVATE-TOKEN': GITLAB_TOKEN },
-      params: {
-        after: formatISO(lastYear, {
-          representation: 'date',
-        }),
-        per_page: 100,
-        page,
-      },
-    })
-    .then((response) => ({
-      events: response.data,
-      totalPages: +response.headers['x-total-pages'],
-    }))
-    .catch(() => ({ events: [] as Event[], totalPages: 1 }));
+const minMonth = subYears(now, 1);
 
-if (Astro.cache.enabled) {
-  const firstPage = await getEventsByPage();
-  events.push(...firstPage.events);
+const months = Array.from(
+  new Set(
+    Object.keys(calendar)
+      .map((isoDate) => new Date(isoDate))
+      .sort((dateA, dateB) => dateA.getTime() - dateB.getTime())
+      .map((date) => format(date, 'MMM. yy')),
+  ),
+);
 
-  for (let page = 2; page <= firstPage.totalPages; page++) {
-    events.push(...(await getEventsByPage(page)).events);
+const getMonthWeeks = (date: Date) => {
+  const days: Date[] = [];
+  let startDay = startOfWeek(startOfMonth(date));
+  const endDay = endOfWeek(endOfMonth(date));
+
+  while (startDay <= endDay) {
+    days.push(startDay);
+    startDay = addDays(startDay, 1);
   }
 
-  calendar = events.reduce<Record<string, number>>((calendar, event) => {
-    const isoDate = formatISO(event.created_at, { representation: 'date' });
-    const dateCount = calendar[isoDate] || 0;
+  const weeks: Date[][] = [];
 
-    return { ...calendar, [isoDate]: dateCount + 1 };
-  }, {});
-}
+  for (let i = 0; i < days.length / 7; i++) {
+    weeks.push(days.slice(i * 7, (i + 1) * 7));
+  }
+
+  return weeks;
+};
+
+const dateIsInRange = (date: Date) =>
+  startOfDay(date) >= startOfDay(minMonth) &&
+  startOfDay(date) <= startOfDay(now);
 ---
 
-<CountCalendar calendar={calendar} now={now} lastYear={lastYear} />
+<section
+  class="flex scrollbar-thin items-start gap-px overflow-x-auto"
+  id={calendarId}
+>
+  {
+    months.map((month, index) => (
+      <div class="flex flex-col gap-px">
+        <span class="text-xs opacity-50">{month}</span>
+
+        <div class="flex items-start gap-px">
+          {getMonthWeeks(addMonths(minMonth, index)).map(
+            (week) =>
+              !!week.length && (
+                <div class="flex flex-col gap-px">
+                  {week.map((day) => {
+                    const isInRange = dateIsInRange(day);
+                    const contributions =
+                      calendar[formatISO(day, { representation: 'date' })] ?? 0;
+
+                    return (
+                      <div
+                        data-count={
+                          calendar[formatISO(day, { representation: 'date' })]
+                        }
+                        data-date={formatISO(day)}
+                        class:list={[
+                          'h-4 w-4 cursor-pointer rounded-xs',
+                          isInRange && contributions > 0
+                            ? 'bg-primary dark:bg-secondary'
+                            : 'bg-dark-base dark:bg-white-base',
+                        ]}
+                        style={{
+                          opacity:
+                            isInRange && contributions > 0
+                              ? contributions / 30
+                              : 0.05,
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              ),
+          )}
+        </div>
+      </div>
+    ))
+  }
+</section>
+
+<script define:vars={{ calendarId }}>
+  const calendarElement = document.getElementById(calendarId);
+  calendarElement?.scrollTo({
+    left: calendarElement.scrollWidth,
+    behavior: 'instant',
+  });
+</script>

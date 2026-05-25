@@ -14,15 +14,6 @@ export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
-  env: {
-    schema: {
-      GITLAB_TOKEN: envField.string({
-        context: 'server',
-        access: 'secret',
-        default: '',
-      }),
-    },
-  },
   fonts: [
     {
       provider: fontProviders.google(),
@@ -73,9 +64,4 @@ export default defineConfig({
       },
     }),
   ],
-  experimental: {
-    cache: {
-      provider: memoryCache(),
-    },
-  },
 });

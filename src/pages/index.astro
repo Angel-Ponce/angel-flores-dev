@@ -1,5 +1,4 @@
 ---
-import CountCalendar from '@components/count-calendar.astro';
 import CvTechStack from '@components/cv-tech-stack.astro';
 import GitlabCalendar from '@components/gitlab-calendar.astro';
 import angelBikerImage from '@images/angel-biker.webp';
@@ -7,14 +6,8 @@ import angelImage from '@images/angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
 import { mainStack } from '@tools/cv-sections';
 import { Image } from 'astro:assets';
-import { subYears } from 'date-fns';
-import { days } from 'time2time';
 
 const now = new Date();
-
-export const prerender = false;
-
-Astro.cache.set({ maxAge: days(1).to('sec') });
 ---
 
 <DefaultPage>
@@ -30,20 +23,20 @@ Astro.cache.set({ maxAge: days(1).to('sec') });
         />
 
         <div
-          class="border-secondary/60 dark:border-secondary/20 shadow-primary absolute -top-3 -left-3 h-14 w-14 rounded-tl-3xl border-t-4 border-l-4"
+          class="border-primary/30 dark:border-secondary/30 shadow-primary absolute -top-3 -left-3 h-14 w-14 rounded-tl-3xl border-t-4 border-l-4"
         >
         </div>
         <div
-          class="border-secondary/60 dark:border-secondary/20 absolute -bottom-3 -left-3 h-14 w-14 rounded-bl-3xl border-b-4 border-l-4"
+          class="border-primary/30 dark:border-secondary/30 absolute -bottom-3 -left-3 h-14 w-14 rounded-bl-3xl border-b-4 border-l-4"
         >
         </div>
 
         <div
-          class="border-secondary/60 dark:border-secondary/20 shadow-primary absolute -top-3 -right-3 h-14 w-14 rounded-tr-3xl border-t-4 border-r-4"
+          class="border-primary/30 dark:border-secondary/30 shadow-primary absolute -top-3 -right-3 h-14 w-14 rounded-tr-3xl border-t-4 border-r-4"
         >
         </div>
         <div
-          class="border-secondary/60 dark:border-secondary/20 absolute -right-3 -bottom-3 h-14 w-14 rounded-br-3xl border-r-4 border-b-4"
+          class="border-primary/30 dark:border-secondary/30 absolute -right-3 -bottom-3 h-14 w-14 rounded-br-3xl border-r-4 border-b-4"
         >
         </div>
 
@@ -82,14 +75,7 @@ Astro.cache.set({ maxAge: days(1).to('sec') });
         <p class="opacity-50">Make every day your masterpiece</p>
       </div>
 
-      <GitlabCalendar server:defer>
-        <CountCalendar
-          calendar={{}}
-          now={now}
-          lastYear={subYears(now, 1)}
-          slot="fallback"
-        />
-      </GitlabCalendar>
+      <GitlabCalendar />
     </section>
 
     <section class="flex flex-col gap-3">
