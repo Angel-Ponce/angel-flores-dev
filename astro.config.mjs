@@ -38,7 +38,7 @@ export default defineConfig({
           'whatsapp-logo-solid',
           'google-mail-logo-solid',
         ],
-        'duo-icons': ['building'],
+        'duo-icons': ['building', 'sun', 'moon-stars'],
         logos: [
           'react',
           'html-5',

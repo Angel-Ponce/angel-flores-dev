@@ -1,8 +1,29 @@
+---
+declare global {
+  interface Window {
+    toggleTheme: () => string;
+  }
+}
+---
+
 <script>
-  document.documentElement.classList.toggle(
-    'dark',
-    localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches),
-  );
+  const theme =
+    localStorage.theme ??
+    (window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light');
+
+  localStorage.theme = theme;
+
+  document.documentElement.classList.add(theme);
+
+  window.toggleTheme = () => {
+    const theme = localStorage.theme === 'light' ? 'dark' : 'light';
+    localStorage.theme = theme;
+
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(theme);
+
+    return theme;
+  };
 </script>
