@@ -1,10 +1,11 @@
 ---
 import ContributionsCalendar from '@components/contributions-calendar.astro';
+import CvDateRange from '@components/cv-date-range.astro';
 import Skills from '@components/skills.astro';
 import angelBikerImage from '@images/angel-biker.webp';
 import angelImage from '@images/angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
-import { mainSkills } from '@tools/cv-sections';
+import { experience, mainSkills } from '@tools/cv-sections';
 import { Image } from 'astro:assets';
 
 const now = new Date();
@@ -69,8 +70,8 @@ const now = new Date();
 
     <section class="flex flex-col gap-3">
       <div>
-        <h3 class="dark:text-primary font-heading text-2xl font-bold">
-          My work trace
+        <h3 class="dark:text-primary font-heading text-2xl font-semibold">
+          My Fingerprint
         </h3>
         <p class="opacity-50">Make every day your masterpiece</p>
       </div>
@@ -80,10 +81,10 @@ const now = new Date();
 
     <section class="flex flex-col gap-3">
       <div>
-        <h3 class="dark:text-primary font-heading text-2xl font-bold">
+        <h3 class="dark:text-primary font-heading text-2xl font-semibold">
           Current Target
         </h3>
-        <p class="opacity-50">What I do?</p>
+        <p class="opacity-50">What do I do?</p>
       </div>
 
       <p>
@@ -92,6 +93,40 @@ const now = new Date();
         > that feels unique, robust, and fast. I'm passionate of modern technologies,
         but I also have experience with largest and legacy projects.
       </p>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <div>
+        <h3 class="dark:text-primary font-heading text-2xl font-semibold">
+          Experience
+        </h3>
+        <p class="opacity-50">the world through code</p>
+      </div>
+
+      <div class="flex flex-col gap-px">
+        <div class="grid grid-cols-2 gap-3">
+          {
+            experience.companies.map((company) => (
+              <div class="bg-primary/10 dark:bg-secondary/10 flex h-24 flex-col gap-3 rounded-2xl p-4 transition-transform duration-200 hover:-translate-y-1 hover:skew-1">
+                <div>
+                  <div class="font-heading text-xl font-semibold">
+                    {company.title}
+                  </div>
+                  <div class="text-sm">{company.subtitle}</div>
+                  <CvDateRange range={company.dateRange} />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="text-sm">
+          <span>Need more detail?</span>
+          <a class="text-primary dark:text-secondary font-semibold" href="/cv"
+            >Checkout my cv</a
+          >
+        </div>
+      </div>
     </section>
   </div>
 </DefaultPage>
