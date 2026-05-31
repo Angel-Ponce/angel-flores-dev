@@ -5,7 +5,7 @@ import { Font } from 'astro:assets';
 import '../index.css';
 ---
 
-<html lang="en">
+<html lang="en" x-data :class="$store.theme.value">
   <head>
     <Font cssVariable="--font-text" preload />
     <Font cssVariable="--font-heading" preload />

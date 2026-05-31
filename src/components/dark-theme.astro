@@ -1,7 +1,7 @@
 ---
 declare global {
   interface Window {
-    toggleTheme: () => string;
+    Alpine: import('alpinejs').Alpine;
   }
 }
 ---
@@ -15,15 +15,16 @@ declare global {
 
   localStorage.theme = theme;
 
-  document.documentElement.classList.add(theme);
-
-  window.toggleTheme = () => {
-    const theme = localStorage.theme === 'light' ? 'dark' : 'light';
-    localStorage.theme = theme;
-
-    document.documentElement.classList.remove('dark', 'light');
-    document.documentElement.classList.add(theme);
-
-    return theme;
-  };
+  document.addEventListener('alpine:init', () => {
+    window.Alpine.store('theme', {
+      value: theme,
+      toggle() {
+        //@ts-ignore
+        const newTheme = this.value === 'dark' ? 'light' : 'dark';
+        //@ts-ignore
+        this.value = newTheme;
+        localStorage.theme = newTheme;
+      },
+    });
+  });
 </script>

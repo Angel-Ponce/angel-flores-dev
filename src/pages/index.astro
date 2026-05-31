@@ -2,38 +2,118 @@
 import ContributionsCalendar from '@components/contributions-calendar.astro';
 import CvDateRange from '@components/cv-date-range.astro';
 import Skills from '@components/skills.astro';
-import ToggleThemeButton from '@components/toggle-theme-button.astro';
 import angelBikerImage from '@images/angel-biker.webp';
 import angelImage from '@images/angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
 import { experience, mainSkills } from '@tools/cv-sections';
+import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 
 const now = new Date();
+
+const navItems = [
+  {
+    label: 'Home',
+    path: '/',
+    iconName: 'solar:home-angle-bold-duotone',
+  },
+  {
+    label: 'Blog',
+    path: '/blog',
+    iconName: 'solar:notebook-minimalistic-bold-duotone',
+  },
+  {
+    label: 'Contact',
+    path: '/contact',
+    iconName: 'solar:user-id-bold-duotone',
+  },
+  {
+    label: 'Cv',
+    path: '/cv',
+    iconName: 'solar:document-add-bold-duotone',
+  },
+];
 ---
 
 <DefaultPage>
   <div class="flex flex-col gap-12">
     <header
-      class="bg-white-base/50 dark:bg-dark-base/50 shadow-dark-base/10 dark:shadow-white-base/10 sticky top-4 z-40 flex items-center justify-between rounded-xl px-4 py-3 font-semibold shadow-sm backdrop-blur-2xl"
+      x-data="{ isExpanded: false, toggle(){ this.isExpanded = !this.isExpanded } }"
+      class="*:border-dark-base/15 *:dark:border-white-base/15 *:bg-white-base/80 *:dark:bg-dark-base/80 z-40 font-semibold will-change-transform *:rounded-xl *:border *:backdrop-blur-xl"
+      :class="isExpanded ? 'fixed top-0 left-0 w-full h-screen' : 'sticky flex items-center justify-end gap-2 top-4 sm:justify-center'"
     >
-      <div></div>
+      <nav
+        class="hidden h-12 w-fit items-center justify-center gap-4 sm:flex sm:px-4.5 sm:py-2.5"
+      >
+        {
+          navItems.map((item) => (
+            <a
+              class="hover:text-primary flex items-center gap-0.5 rounded-md px-1 py-px transition-colors duration-200"
+              href={item.path}
+            >
+              <Icon name={item.iconName} size={20} />
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
 
-      <ToggleThemeButton />
+      {
+        ['dark', 'light'].map((theme) => (
+          <div
+            x-show={`$store.theme.value === '${theme}'`}
+            class="h-12 w-12 cursor-pointer items-center justify-center"
+            x-on:click="$store.theme.toggle()"
+            x-bind:class="isExpanded ? 'hidden': 'flex'"
+          >
+            <Icon
+              name={`solar:${theme === 'dark' ? 'sun-2-bold-duotone' : 'moon-bold-duotone'}`}
+              size={20}
+            />
+          </div>
+        ))
+      }
+
+      <div
+        x-on:click="!isExpanded && toggle()"
+        :class="isExpanded ? 'flex flex-col gap-8 p-4 w-full h-full' : 'flex h-12 w-12 cursor-pointer items-center justify-center sm:hidden'"
+      >
+        <div :class="isExpanded && 'hidden'">
+          <Icon name="solar:hamburger-menu-linear" size={28} />
+        </div>
+        <div
+          class="flex cursor-pointer justify-end"
+          :class="!isExpanded && 'hidden'"
+          x-on:click="() => { $event.stopPropagation(); toggle(); }"
+        >
+          <Icon name="solar:close-circle-bold-duotone" size={28} />
+        </div>
+
+        {
+          navItems.map((item) => (
+            <a
+              class="flex items-center justify-center text-3xl"
+              href={item.path}
+              x-bind:class="!isExpanded && 'hidden'"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
     </header>
 
-    <div class="flex flex-wrap gap-12">
-      <div class="relative h-56.25 w-75 shrink-0">
+    <div class="flex flex-wrap items-start gap-12">
+      <div class="relative w-full max-w-75 shrink-0">
         <Image
           src={angelBikerImage}
           alt="Angel Biker"
-          width={600}
-          height={450}
+          layout="full-width"
           class="rounded-xl"
         />
 
         <div
-          class="border-primary/30 dark:border-secondary/30 shadow-primary absolute -top-3 -left-3 h-14 w-14 rounded-tl-3xl border-t-4 border-l-4"
+          class="border-primary/30 dark:border-secondary/30 absolute -top-3 -left-3 h-14 w-14 rounded-tl-3xl border-t-4 border-l-4"
         >
         </div>
         <div
@@ -42,7 +122,7 @@ const now = new Date();
         </div>
 
         <div
-          class="border-primary/30 dark:border-secondary/30 shadow-primary absolute -top-3 -right-3 h-14 w-14 rounded-tr-3xl border-t-4 border-r-4"
+          class="border-primary/30 dark:border-secondary/30 absolute -top-3 -right-3 h-14 w-14 rounded-tr-3xl border-t-4 border-r-4"
         >
         </div>
         <div
@@ -62,7 +142,7 @@ const now = new Date();
           />
         </div>
       </div>
-      <div class="flex min-w-[320px] flex-1 flex-col justify-between gap-3">
+      <div class="flex min-w-50 flex-1 flex-col justify-between gap-3">
         <div>
           <h1 class="font-heading text-4xl font-semibold">Angel Flores</h1>
           <h2 class="text-primary text-xl">Software Engineer</h2>
@@ -112,7 +192,7 @@ const now = new Date();
         <p class="opacity-50">the world through code</p>
       </div>
 
-      <div class="flex flex-col gap-px">
+      <div class="flex flex-col gap-0.5">
         <div class="grid gap-3 sm:grid-cols-2">
           {
             experience.companies.map((company) => (

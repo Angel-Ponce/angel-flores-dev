@@ -68,6 +68,7 @@ const isDayInRange = (date: Date) =>
   <section
     class="flex scrollbar-thin items-start gap-px overflow-x-auto"
     id={calendarId}
+    x-init="$el.scrollTo({left: $el.scrollWidth, behavior:'instant'})"
   >
     {
       months.map((month, index) => (
@@ -163,11 +164,3 @@ const isDayInRange = (date: Date) =>
     </div>
   </div>
 </div>
-
-<script define:vars={{ calendarId }}>
-  const calendarElement = document.getElementById(calendarId);
-  calendarElement?.scrollTo({
-    left: calendarElement.scrollWidth,
-    behavior: 'instant',
-  });
-</script>

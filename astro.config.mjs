@@ -10,6 +10,8 @@ import icon from 'astro-icon';
 
 import vercel from '@astrojs/vercel';
 
+import alpinejs from '@astrojs/alpinejs';
+
 export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
@@ -38,7 +40,17 @@ export default defineConfig({
           'whatsapp-logo-solid',
           'google-mail-logo-solid',
         ],
-        'duo-icons': ['building', 'sun', 'moon-stars'],
+        solar: [
+          'buildings-bold-duotone',
+          'sun-2-bold-duotone',
+          'home-angle-bold-duotone',
+          'notebook-minimalistic-bold-duotone',
+          'user-id-bold-duotone',
+          'document-add-bold-duotone',
+          'moon-bold-duotone',
+          'hamburger-menu-linear',
+          'close-circle-bold-duotone',
+        ],
         logos: [
           'react',
           'html-5',
@@ -63,5 +75,6 @@ export default defineConfig({
         iconDir: 'src/svg/icons',
       },
     }),
+    alpinejs(),
   ],
 });
