@@ -50,6 +50,7 @@ export default defineConfig({
           'moon-bold-duotone',
           'hamburger-menu-linear',
           'close-circle-bold-duotone',
+          'question-circle-bold-duotone',
         ],
         logos: [
           'react',
@@ -71,6 +72,9 @@ export default defineConfig({
           'laravel',
           'nextjs-icon',
           'astro-icon',
+          'netflix-icon',
+          'spotify-icon',
+          'visual-studio-code',
         ],
         iconDir: 'src/svg/icons',
       },

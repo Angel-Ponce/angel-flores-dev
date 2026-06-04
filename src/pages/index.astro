@@ -8,13 +8,15 @@ import wifeImage from '@images/wife.webp';
 import familyImage from '@images/family.webp';
 import ositaImage from '@images/osita.webp';
 import bikeImage from '@images/bike.webp';
+import brawlStarsImage from '@images/brawl-stars.webp';
+import driveImage from '@images/drive.webp';
 import DefaultPage from '@layouts/default-page.astro';
 import { experience, mainSkills } from '@tools/cv-sections';
+import { hobbies } from '@tools/hobbies';
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 import { contactMethods } from '@tools/contact-methods';
-
-const now = new Date();
+import { getImage } from 'astro:assets';
 
 const navItems = [
   {
@@ -247,7 +249,9 @@ const navItems = [
       <div
         class="grid grid-cols-2 items-center justify-center gap-4 text-center text-xs sm:grid-cols-4"
       >
-        <div class="rotate-2 transition-transform duration-200 hover:rotate-0">
+        <div
+          class="rotate-2 transition-transform duration-200 hover:scale-105 hover:rotate-0"
+        >
           <Image
             layout="full-width"
             class="rounded-xl"
@@ -257,7 +261,7 @@ const navItems = [
           <span class="mt-0.5">My beauty wife, Josselin</span>
         </div>
         <div
-          class="-rotate-2 overflow-hidden transition-transform duration-200 hover:rotate-0"
+          class="-rotate-2 overflow-hidden transition-transform duration-200 hover:scale-105 hover:rotate-0"
         >
           <Image
             layout="full-width"
@@ -268,7 +272,7 @@ const navItems = [
           <span class="mt-0.5">My little puppy, Osita</span>
         </div>
         <div
-          class="rotate-2 overflow-hidden transition-transform duration-200 hover:rotate-0"
+          class="rotate-2 overflow-hidden transition-transform duration-200 hover:scale-105 hover:rotate-0"
         >
           <Image
             layout="full-width"
@@ -279,7 +283,7 @@ const navItems = [
           <span class="mt-0.5">My family</span>
         </div>
         <div
-          class="-rotate-2 overflow-hidden transition-transform duration-200 hover:rotate-0"
+          class="-rotate-2 overflow-hidden transition-transform duration-200 hover:scale-105 hover:rotate-0"
         >
           <Image
             layout="full-width"
@@ -290,6 +294,37 @@ const navItems = [
           <span class="mt-0.5">My favorite transport</span>
         </div>
       </div>
+
+      <h4 class="font-heading text-xl font-semibold">My hobbies</h4>
+
+      {
+        hobbies.map((hobby) => (
+          <div class="flex flex-wrap items-center gap-4">
+            <div class="flex items-start gap-3">
+              <div class="relative shrink-0">
+                {hobby.image && (
+                  <Image
+                    src={hobby.image}
+                    width={55}
+                    height={55}
+                    alt={hobby.title}
+                    class="rounded-xl"
+                  />
+                )}
+
+                {!hobby.image && (
+                  <Icon name={hobby.iconName} size={55} class="rounded-xl" />
+                )}
+              </div>
+
+              <div>
+                <h5 class="font-heading font-semibold">{hobby.title}</h5>
+                <span>{hobby.description}</span>
+              </div>
+            </div>
+          </div>
+        ))
+      }
     </section>
   </div>
 </DefaultPage>
