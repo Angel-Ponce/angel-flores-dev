@@ -23,7 +23,7 @@ export const hobbies: Hobby[] = [
     image: brawlStarsImage,
   },
   {
-    title: 'Drive my bike',
+    title: 'Ride my bike',
     description: `Ride a bike becomes in awesome experiences, the wind in your face, exotic trips, adrenaline, good fuel economy, and more`,
     iconName: 'solar:question-circle-bold-duotone',
     image: driveImage,

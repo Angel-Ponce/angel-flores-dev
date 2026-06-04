@@ -51,6 +51,7 @@ export default defineConfig({
           'hamburger-menu-linear',
           'close-circle-bold-duotone',
           'question-circle-bold-duotone',
+          'code-bold-duotone',
         ],
         logos: [
           'react',

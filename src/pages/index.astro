@@ -4,19 +4,16 @@ import CvDateRange from '@components/cv-date-range.astro';
 import Skills from '@components/skills.astro';
 import angelBikerImage from '@images/angel-biker.webp';
 import angelImage from '@images/angel.webp';
-import wifeImage from '@images/wife.webp';
+import bikeImage from '@images/bike.webp';
 import familyImage from '@images/family.webp';
 import ositaImage from '@images/osita.webp';
-import bikeImage from '@images/bike.webp';
-import brawlStarsImage from '@images/brawl-stars.webp';
-import driveImage from '@images/drive.webp';
+import wifeImage from '@images/wife.webp';
 import DefaultPage from '@layouts/default-page.astro';
+import { contactMethods } from '@tools/contact-methods';
 import { experience, mainSkills } from '@tools/cv-sections';
 import { hobbies } from '@tools/hobbies';
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-import { contactMethods } from '@tools/contact-methods';
-import { getImage } from 'astro:assets';
 
 const navItems = [
   {
@@ -28,6 +25,11 @@ const navItems = [
     label: 'Blog',
     path: '/blog',
     iconName: 'solar:notebook-minimalistic-bold-duotone',
+  },
+  {
+    label: 'Packages',
+    path: '/packages',
+    iconName: 'solar:code-bold-duotone',
   },
   {
     label: 'Contact',
@@ -299,28 +301,26 @@ const navItems = [
 
       {
         hobbies.map((hobby) => (
-          <div class="flex flex-wrap items-center gap-4">
-            <div class="flex items-start gap-3">
-              <div class="relative shrink-0">
-                {hobby.image && (
-                  <Image
-                    src={hobby.image}
-                    width={55}
-                    height={55}
-                    alt={hobby.title}
-                    class="rounded-xl"
-                  />
-                )}
+          <div class="flex items-start gap-3">
+            <div class="relative shrink-0">
+              {hobby.image && (
+                <Image
+                  src={hobby.image}
+                  width={40}
+                  height={40}
+                  alt={hobby.title}
+                  class="rounded-xl"
+                />
+              )}
 
-                {!hobby.image && (
-                  <Icon name={hobby.iconName} size={55} class="rounded-xl" />
-                )}
-              </div>
+              {!hobby.image && (
+                <Icon name={hobby.iconName} size={40} class="rounded-xl" />
+              )}
+            </div>
 
-              <div>
-                <h5 class="font-heading font-semibold">{hobby.title}</h5>
-                <span>{hobby.description}</span>
-              </div>
+            <div>
+              <h5 class="font-heading font-semibold">{hobby.title}</h5>
+              <span>{hobby.description}</span>
             </div>
           </div>
         ))
