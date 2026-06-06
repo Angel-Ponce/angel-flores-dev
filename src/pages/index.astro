@@ -12,39 +12,12 @@ import DefaultPage from '@layouts/default-page.astro';
 import { contactMethods } from '@tools/contact-methods';
 import { experience, mainSkills } from '@tools/cv-sections';
 import { hobbies } from '@tools/hobbies';
+import { navItems } from '@tools/nav-items';
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
-
-const navItems = [
-  {
-    label: 'Home',
-    path: '/',
-    iconName: 'solar:home-angle-bold-duotone',
-  },
-  {
-    label: 'Blog',
-    path: '/blog',
-    iconName: 'solar:notebook-minimalistic-bold-duotone',
-  },
-  {
-    label: 'Packages',
-    path: '/packages',
-    iconName: 'solar:code-bold-duotone',
-  },
-  {
-    label: 'Contact',
-    path: '/contact',
-    iconName: 'solar:user-id-bold-duotone',
-  },
-  {
-    label: 'Cv',
-    path: '/cv',
-    iconName: 'solar:document-add-bold-duotone',
-  },
-];
 ---
 
-<DefaultPage>
+<DefaultPage withFooter>
   <div class="flex flex-col gap-12">
     <header
       x-data="{ isExpanded: false, toggle(){ this.isExpanded = !this.isExpanded } }"
@@ -167,10 +140,15 @@ const navItems = [
             {
               contactMethods.map((method) => (
                 <a
+                  data-tippy
                   href={method.href}
                   class="bg-primary/10 text-primary/90 rounded-md p-1"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <Icon name={method.iconName} size={16} />
+
+                  <span data-tippy-content>{method.name}</span>
                 </a>
               ))
             }
@@ -199,7 +177,7 @@ const navItems = [
       </div>
 
       <p>
-        I'm currently working on <b>Frontend Development</b> building <b
+        I'm currently working as a <b>Frontend Engineer</b> building <b
           >web & apps</b
         > that feels unique, robust, and fast. I'm passionate of modern technologies,
         but I also have experience with largest and legacy projects.
@@ -218,7 +196,7 @@ const navItems = [
         <div class="grid gap-3 sm:grid-cols-2">
           {
             experience.companies.map((company) => (
-              <div class="bg-secondary/15 flex min-h-24 flex-col gap-3 rounded-xl p-4 transition-transform duration-200 hover:-translate-y-1 hover:skew-1">
+              <div class="bg-dark-base/5 dark:bg-secondary/5 flex min-h-24 flex-col gap-3 rounded-xl p-4 transition-transform duration-200 hover:-translate-y-1 hover:skew-1">
                 <div>
                   <div class="font-heading text-xl font-semibold">
                     {company.title}
@@ -297,34 +275,78 @@ const navItems = [
         </div>
       </div>
 
-      <h4 class="font-heading text-xl font-semibold">My hobbies</h4>
+      <div class="flex flex-col gap-5 py-5">
+        <h4 class="font-heading text-xl font-semibold">My hobbies</h4>
 
-      {
-        hobbies.map((hobby) => (
-          <div class="flex items-start gap-3">
-            <div class="relative shrink-0">
-              {hobby.image && (
-                <Image
-                  src={hobby.image}
-                  width={40}
-                  height={40}
-                  alt={hobby.title}
-                  class="rounded-xl"
-                />
-              )}
+        {
+          hobbies.map((hobby) => (
+            <div class="flex items-start gap-3">
+              <div class="relative shrink-0">
+                {hobby.image && (
+                  <Image
+                    src={hobby.image}
+                    width={40}
+                    height={40}
+                    alt={hobby.title}
+                    class="rounded-xl"
+                  />
+                )}
 
-              {!hobby.image && (
-                <Icon name={hobby.iconName} size={40} class="rounded-xl" />
-              )}
+                {!hobby.image && (
+                  <Icon name={hobby.iconName} size={40} class="rounded-xl" />
+                )}
+              </div>
+
+              <div>
+                <h5 class="font-heading font-semibold">{hobby.title}</h5>
+                <span>{hobby.description}</span>
+              </div>
             </div>
+          ))
+        }
+      </div>
+    </section>
 
-            <div>
-              <h5 class="font-heading font-semibold">{hobby.title}</h5>
-              <span>{hobby.description}</span>
-            </div>
-          </div>
-        ))
-      }
+    <section
+      class="flex flex-col items-center gap-3 rounded-xl py-5 text-center"
+    >
+      <div>
+        <h2
+          class="font-heading from-primary/10 via-primary to-primary/10 bg-linear-to-r bg-clip-text text-[3rem] font-semibold text-transparent sm:text-[5rem]"
+        >
+          Let's Connect
+        </h2>
+        <p class="opacity-50">I'm ready to your next project</p>
+
+        <div
+          class="flex flex-wrap items-center justify-center gap-12 px-6 py-12"
+        >
+          {
+            contactMethods
+              .filter((method) => method.name !== 'Location')
+              .map((method) => (
+                <a
+                  class="flex flex-col items-center"
+                  href={method.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div class="flex items-start gap-2">
+                    <Icon name={method.iconName} size={24} class="opacity-50" />
+
+                    <div class="text-left whitespace-nowrap">
+                      <h3 class="font-heading text-xl font-semibold">
+                        {method.name}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <span class="text-sm opacity-50">{method.label}</span>
+                </a>
+              ))
+          }
+        </div>
+      </div>
     </section>
   </div>
 </DefaultPage>

@@ -1,16 +1,8 @@
-import {
-  defineConfig,
-  envField,
-  fontProviders,
-  memoryCache,
-} from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-
-import icon from 'astro-icon';
-
-import vercel from '@astrojs/vercel';
-
 import alpinejs from '@astrojs/alpinejs';
+import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
+import icon from 'astro-icon';
+import { defineConfig, fontProviders } from 'astro/config';
 
 export default defineConfig({
   output: 'static',
@@ -76,7 +68,9 @@ export default defineConfig({
           'netflix-icon',
           'spotify-icon',
           'visual-studio-code',
+          'alpinejs-icon',
         ],
+        flag: ['gt-4x3'],
         iconDir: 'src/svg/icons',
       },
     }),

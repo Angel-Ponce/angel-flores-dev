@@ -19,6 +19,7 @@ export const skills = {
   MySQL: 'logos:mysql',
   NextJS: 'logos:nextjs-icon',
   Astro: 'logos:astro-icon',
+  AlpineJS: 'logos:alpinejs-icon',
 } as const;
 
 export const getSkills = (...names: (keyof typeof skills)[]) =>
