@@ -1,0 +1,18 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  href: string;
+  title: string;
+}
+
+const { href, title } = Astro.props;
+---
+
+<a
+  href={href}
+  class="font-heading accent flex cursor-pointer items-center gap-1 text-lg font-semibold underline-offset-4 hover:underline"
+>
+  {title}
+  <Icon name="solar:arrow-right-up-line-duotone" size={20} />
+</a>

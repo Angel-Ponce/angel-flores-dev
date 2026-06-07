@@ -1,0 +1,73 @@
+---
+import DefaultPage from '@layouts/default-page.astro';
+import type { DefaultBlogContent } from '../content.config';
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+  blog: DefaultBlogContent;
+}
+
+const { blog } = Astro.props;
+---
+
+<DefaultPage withFooter>
+  <section class="flex flex-col gap-5">
+    <div>
+      <h1 class="font-heading flex items-center gap-2 text-4xl font-semibold">
+        <a
+          class="hover:bg-secondary/20 cursor-pointer rounded-xl p-0.5 transition-colors duration-200"
+          href="/blog"
+        >
+          <Icon name="solar:arrow-left-line-duotone" size={28} />
+        </a>
+        <div>
+          {blog.title}
+        </div>
+      </h1>
+
+      <p class="opacity-50">{blog.description}</p>
+    </div>
+
+    <div data-blog class="flex flex-col gap-5">
+      <slot />
+    </div>
+  </section>
+</DefaultPage>
+
+<style>
+  @reference "../index.css";
+
+  *[data-blog] {
+    :global(h1, h2, h3, h4, h5, h6) {
+      @apply font-heading border-dark-base/10 dark:border-white-base/10 border-b py-1 font-semibold;
+    }
+
+    :global(h1) {
+      @apply text-4xl;
+    }
+
+    :global(h2) {
+      @apply text-2xl;
+    }
+
+    :global(h3) {
+      @apply text-xl;
+    }
+
+    :global(h4) {
+      @apply text-lg;
+    }
+
+    :global(pre) {
+      @apply rounded-xl p-4 text-sm;
+    }
+
+    :global(hr) {
+      @apply opacity-0;
+    }
+
+    :global(code):not(pre code) {
+      @apply bg-primary/15 rounded-sm px-1 py-0.5 text-sm;
+    }
+  }
+</style>

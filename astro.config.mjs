@@ -8,6 +8,14 @@ export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
+  markdown: {
+    shikiConfig: {
+      themes: {
+        dark: 'vitesse-dark',
+        light: 'vitesse-light',
+      },
+    },
+  },
   fonts: [
     {
       provider: fontProviders.google(),
@@ -45,6 +53,8 @@ export default defineConfig({
           'question-circle-bold-duotone',
           'code-bold-duotone',
           'arrow-right-up-line-duotone',
+          'arrow-left-line-duotone',
+          'code-file-bold-duotone',
         ],
         logos: [
           'react',

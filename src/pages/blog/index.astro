@@ -1,0 +1,39 @@
+---
+import AnchorTitle from '@components/anchor-title.astro';
+import DefaultPage, {
+  type DefaultPageContent,
+} from '@layouts/default-page.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+const page: DefaultPageContent = {
+  title: 'Blog',
+  description:
+    "I'm happy to share my knowledge about software & engineering. I also want to write about my life experiences, trips, events, thoughts and reflections. This space is for you and me at the same time.",
+};
+
+const blogs = await getCollection('blog');
+---
+
+<DefaultPage withHeader withFooter page={page}>
+  <div class="flex flex-col gap-4">
+    {
+      blogs.map((blog) => (
+        <div class="flex items-center gap-4">
+          <div class="bg-dark-base/10 dark:bg-white-base/10 rounded-xl p-3 backdrop-blur-xs">
+            <Icon name={blog.data.iconName} size={50} class="text-primary" />
+          </div>
+
+          <div>
+            <AnchorTitle
+              href={`/blog/${blog.data.slug}`}
+              title={blog.data.title}
+            />
+
+            {blog.data.description}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</DefaultPage>

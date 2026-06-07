@@ -9,7 +9,7 @@ import '../index.css';
 import { navItems } from '@tools/nav-items';
 import { contactMethods } from '@tools/contact-methods';
 
-export type DefaultPageElements = {
+export type DefaultPageContent = {
   title: string;
   description: string;
 };
@@ -17,7 +17,7 @@ export type DefaultPageElements = {
 export interface Props {
   withFooter?: boolean;
   withHeader?: boolean;
-  page?: DefaultPageElements;
+  page?: DefaultPageContent;
 }
 
 const { withFooter, withHeader, page } = Astro.props;
@@ -27,7 +27,7 @@ const { withFooter, withHeader, page } = Astro.props;
   <head>
     <Font cssVariable="--font-text" preload />
     <Font cssVariable="--font-heading" preload />
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
@@ -45,7 +45,7 @@ const { withFooter, withHeader, page } = Astro.props;
     <main class="flex min-h-screen w-full items-stretch justify-center">
       <section
         class:list={[
-          'relative flex w-full max-w-[8.27in] flex-col gap-12 p-12',
+          'flex w-full max-w-[8.27in] flex-col gap-12 p-12',
           withFooter && 'pb-0',
         ]}
       >
