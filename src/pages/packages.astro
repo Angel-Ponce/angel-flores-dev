@@ -1,0 +1,66 @@
+---
+import DefaultPage, {
+  type DefaultPageElements,
+} from '@layouts/default-page.astro';
+import { Icon } from 'astro-icon/components';
+import { packages } from '@tools/packages';
+
+const page: DefaultPageElements = {
+  title: 'Packages',
+  description:
+    "I really enjoy programming, when I've free time I like to create packages for NPM and I plan to continue doing so indefinitely. Most of my packages are based on tooling and, code improvements.",
+};
+---
+
+<DefaultPage withFooter withHeader page={page}>
+  <div class="flex flex-col gap-4">
+    {
+      packages.map((packageItem, index, { length }) => (
+        <>
+          <div class="flex items-start gap-4 py-2">
+            <div class="text-3xl">{packageItem.emoji}</div>
+
+            <div>
+              <a
+                href={packageItem.href}
+                class="font-heading accent flex cursor-pointer items-center gap-1 text-lg font-semibold underline-offset-4 hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {packageItem.name}
+
+                <Icon name="solar:arrow-right-up-line-duotone" size={20} />
+              </a>
+              {packageItem.description}
+
+              <div class="flex items-center gap-2 py-2 text-sm">
+                <a
+                  href={packageItem.npmHref}
+                  class="flex items-center gap-1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon name="logos:npm-icon" size={14} />
+                  <span class="opacity-50">npm</span>
+                </a>
+                <a
+                  href={packageItem.githubHref}
+                  class="flex items-center gap-1"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Icon name="streamline-logos:github-logo-1-solid" size={14} />
+                  <span class="opacity-50">repo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {index !== length - 1 && (
+            <div class="via-primary h-px bg-linear-to-r from-transparent to-transparent" />
+          )}
+        </>
+      ))
+    }
+  </div>
+</DefaultPage>

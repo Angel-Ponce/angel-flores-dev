@@ -44,6 +44,7 @@ export default defineConfig({
           'close-circle-bold-duotone',
           'question-circle-bold-duotone',
           'code-bold-duotone',
+          'arrow-right-up-line-duotone',
         ],
         logos: [
           'react',
@@ -69,6 +70,7 @@ export default defineConfig({
           'spotify-icon',
           'visual-studio-code',
           'alpinejs-icon',
+          'npm-icon',
         ],
         flag: ['gt-4x3'],
         iconDir: 'src/svg/icons',
