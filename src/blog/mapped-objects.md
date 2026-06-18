@@ -34,8 +34,6 @@ const record = data.find((item) => item.name === 'Bill');
 
 This minimal difference becomes into a most of the common mistakes when working with `arrays`, because you're are executing a lineal searching over entry array, and that hurts performance. Now, imagine to execute a lineal search over a largest array multiple times (as normally happens when developing anything)
 
----
-
 ## The solution?
 
 ✨ Mapped Objects, it's a data structure to transform a entry array into a key based dictionary, example:
