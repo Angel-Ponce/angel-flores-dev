@@ -1,11 +1,11 @@
 ---
-import CvSection from '@components/cv-section.astro';
+import ResumeSection from '@components/resume-section.astro';
 import Skills from '@components/skills.astro';
-import cvAngelImage from '@images/cv-angel.webp';
+import resumeAngelImage from '@images/resume-angel.webp';
 import DefaultPage from '@layouts/default-page.astro';
 import Topo from '@svg/topo.svg';
 import { contactMethods } from '@tools/contact-methods';
-import { cvSections, mainSkills } from '@tools/cv-sections';
+import { resumeSections, mainSkills } from '@tools/resume-sections';
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 ---
@@ -17,7 +17,7 @@ import { Image } from 'astro:assets';
     />
     <div class="float-right mb-3 ml-3 h-40 w-40 overflow-hidden rounded-lg">
       <Image
-        src={cvAngelImage}
+        src={resumeAngelImage}
         width={320}
         height={320}
         alt="Angel Flores"
@@ -55,7 +55,7 @@ import { Image } from 'astro:assets';
       <i>Let's do it together!</i>
     </section>
 
-    {cvSections.map((section) => <CvSection {...section} />)}
+    {resumeSections.map((section) => <ResumeSection {...section} />)}
   </section>
 </DefaultPage>
 

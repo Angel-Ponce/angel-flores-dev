@@ -1,9 +1,9 @@
 ---
-import type { CvDateRange } from '@tools/cv-sections';
+import type { ResumeDateRange } from '@tools/resume-sections';
 import { format, formatDistanceToNowStrict } from 'date-fns';
 
 interface Props {
-  range: CvDateRange;
+  range: ResumeDateRange;
 }
 
 const { range } = Astro.props;

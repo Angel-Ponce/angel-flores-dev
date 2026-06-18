@@ -15,8 +15,8 @@ export const navItems = [
     iconName: 'solar:code-bold-duotone',
   },
   {
-    label: 'Cv',
-    path: '/cv',
+    label: 'Resume',
+    path: '/resume',
     iconName: 'solar:document-add-bold-duotone',
   } as const,
 ];

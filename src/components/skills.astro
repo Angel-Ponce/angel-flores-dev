@@ -1,10 +1,10 @@
 ---
 interface Props {
-  skills?: CvSkills;
+  skills?: ResumeSkills;
   title?: string;
 }
 
-import type { CvSkills } from '@tools/cv-sections';
+import type { ResumeSkills } from '@tools/resume-sections';
 import { Icon } from 'astro-icon/components';
 
 const { skills, title = 'Main stack' } = Astro.props;

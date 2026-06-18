@@ -37,7 +37,6 @@ export default defineConfig({
           'github-logo-1-solid',
           'linkedin-logo-solid',
           'google-maps-logo-solid',
-          'whatsapp-logo-solid',
           'google-mail-logo-solid',
         ],
         solar: [

@@ -1,11 +1,12 @@
 ---
-import type { CvSection } from '@tools/cv-sections';
+import type { ResumeSection } from '@tools/resume-sections';
 import { Icon } from 'astro-icon/components';
-import CvDateRange from './cv-date-range.astro';
-import CvPointList from './cv-point-list.astro';
-import Skills from './skills.astro';
 
-interface Props extends CvSection {}
+import Skills from './skills.astro';
+import ResumeDateRange from './resume-date-range.astro';
+import ResumePointList from './resume-point-list.astro';
+
+interface Props extends ResumeSection {}
 
 const { title, description, subsections, companies } = Astro.props;
 
@@ -24,7 +25,7 @@ const DATE_FORMAT = 'dd MMM. yyyy';
         <p>
           {section.description}
           {' • '}
-          <CvDateRange range={section.dateRange} />
+          <ResumeDateRange range={section.dateRange} />
         </p>
       </div>
     ))
@@ -40,24 +41,24 @@ const DATE_FORMAT = 'dd MMM. yyyy';
             <div>
               {company.subtitle}
               {' • '}
-              <CvDateRange range={company.dateRange} />
+              <ResumeDateRange range={company.dateRange} />
             </div>
           </div>
 
           <Skills skills={company.skills} />
 
-          <CvPointList points={company.points} />
+          <ResumePointList points={company.points} />
 
           {company.sections?.map((section) => (
             <div class="flex flex-col gap-3">
               <div>
                 <div class="font-semibold">{section.title}</div>
-                <CvDateRange range={section.dateRange} />
+                <ResumeDateRange range={section.dateRange} />
               </div>
 
               <Skills skills={section.skills} />
 
-              <CvPointList points={section.points} />
+              <ResumePointList points={section.points} />
             </div>
           ))}
         </div>

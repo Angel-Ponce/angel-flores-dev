@@ -1,4 +1,4 @@
-import type { CvSkills } from './cv-sections';
+import type { ResumeSkills } from './resume-sections';
 
 export const skills = {
   PostgreSQL: 'logos:postgresql',
@@ -23,4 +23,7 @@ export const skills = {
 } as const;
 
 export const getSkills = (...names: (keyof typeof skills)[]) =>
-  names.reduce<CvSkills>((map, name) => ({ ...map, [name]: skills[name] }), {});
+  names.reduce<ResumeSkills>(
+    (map, name) => ({ ...map, [name]: skills[name] }),
+    {},
+  );

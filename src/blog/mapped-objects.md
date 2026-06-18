@@ -23,7 +23,7 @@ export const data = [
 Next, try to access to the record with `id = 2`, if you are using any language (egg: JavaScript) you probably can do something like this:
 
 ```typescript
-const record = data[2];
+const record = data[1]; // (assuming your data set is ordered by id)
 ```
 
 Next, try to access to the record with `name = 'Bill'`, it's essential the same idea as above, but a bit different:

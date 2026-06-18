@@ -1,28 +1,28 @@
 import { getSkills } from './skills';
 
-export type CvDateRange = [start: Date, end: Date | 'present'];
+export type ResumeDateRange = [start: Date, end: Date | 'present'];
 
-export type CvSkills = Record<string, string>;
+export type ResumeSkills = Record<string, string>;
 
-export type CvSection = {
+export type ResumeSection = {
   title: string;
   description?: string;
   subsections?: {
     title: string;
     description: string;
-    dateRange: CvDateRange;
+    dateRange: ResumeDateRange;
   }[];
   companies?: {
     title: string;
     subtitle: string;
-    dateRange: CvDateRange;
+    dateRange: ResumeDateRange;
     points?: string[];
-    skills?: CvSkills;
+    skills?: ResumeSkills;
     sections?: {
       title: string;
-      dateRange: CvDateRange;
+      dateRange: ResumeDateRange;
       points: string[];
-      skills?: CvSkills;
+      skills?: ResumeSkills;
     }[];
   }[];
 };
@@ -36,18 +36,13 @@ export const mainSkills = getSkills(
   'Git',
 );
 
-export const education: CvSection = {
+export const education: ResumeSection = {
   title: 'Education',
   subsections: [
     {
       title: "Engineer's degree, Systems Engineering",
       description: 'Universidad San Carlos de Guatemala',
       dateRange: [new Date(2019, 0, 1), new Date(2025, 9, 1)],
-    },
-    {
-      title: "Bachelor's degree, Data & Science",
-      description: 'Instituto Normal Mixto del Norte "Emilio Rosales Ponce"',
-      dateRange: [new Date(2017, 0, 1), new Date(2018, 9, 1)],
     },
   ],
 };
@@ -161,6 +156,6 @@ export const experience = {
       ],
     },
   ],
-} as const satisfies CvSection;
+} as const satisfies ResumeSection;
 
-export const cvSections = [education, experience];
+export const resumeSections = [education, experience];

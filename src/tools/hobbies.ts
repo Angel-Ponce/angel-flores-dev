@@ -13,7 +13,7 @@ export const hobbies: Hobby[] = [
   {
     title: 'Coding',
     description:
-      'I really enjoy code, learn about fresh technologies, practice, solve problems, write clean code. If you can imagine, you can program it ♥️ ~ Alejandro Taboada',
+      'I really enjoy code, learn about fresh technologies, practice, solve problems, write clean code. <i>If you can imagine, you can program it ♥️ ~ Alejandro Taboada</i>',
     iconName: 'logos:visual-studio-code',
   },
   {
