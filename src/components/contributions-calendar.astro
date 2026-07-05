@@ -12,10 +12,8 @@ import {
   startOfWeek,
   subYears,
 } from 'date-fns';
-import { v4 as uuidV4 } from 'uuid';
 
 const now = new Date();
-const calendarId = `calendar-${uuidV4()}`;
 
 const startMonth = subYears(now, 1);
 
@@ -67,7 +65,6 @@ const isDayInRange = (date: Date) =>
 <div class="flex flex-col gap-px">
   <section
     class="flex scrollbar-thin items-start gap-px overflow-x-auto"
-    id={calendarId}
     x-init="$el.scrollTo({left: $el.scrollWidth, behavior:'instant'})"
   >
     {

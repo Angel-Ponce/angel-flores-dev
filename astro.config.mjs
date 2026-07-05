@@ -2,12 +2,15 @@ import alpinejs from '@astrojs/alpinejs';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, memoryCache } from 'astro/config';
 
 export default defineConfig({
   output: 'static',
   vite: { plugins: [tailwindcss()] },
   adapter: vercel(),
+  cache: {
+    provider: memoryCache(),
+  },
   markdown: {
     shikiConfig: {
       themes: {
